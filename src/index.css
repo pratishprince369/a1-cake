@@ -203,8 +203,8 @@ input:focus, textarea:focus {
 
 .chat-sidebar {
   width: 260px;
-  background-color: #f7f7f8;
-  border-right: 1px solid var(--color-border);
+  background-color: #171717;
+  color: #fff;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -212,38 +212,50 @@ input:focus, textarea:focus {
 }
 
 .chat-sidebar-header {
-  padding: 16px;
-  border-bottom: 1px solid var(--color-border);
-  font-weight: 600;
-  color: var(--color-text-main);
+  padding: 12px 14px;
+  margin: 12px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #fff;
+  background-color: transparent;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.chat-sidebar-header:hover {
+  background-color: #2f2f2f;
 }
 
 .chat-sidebar-history {
   flex: 1;
   overflow-y: auto;
-  padding: 12px;
+  padding: 0 12px;
 }
 
 .history-item {
-  padding: 12px;
+  padding: 10px 12px;
   border-radius: 8px;
   cursor: pointer;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   font-size: 14px;
-  color: var(--color-text-main);
-  background: white;
-  border: 1px solid var(--color-border);
-  transition: all 0.2s ease;
+  color: #ececec;
+  background: transparent;
+  border: none;
+  transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .history-item:hover {
-  background: #f0f0f0;
-  border-color: #ccc;
+  background-color: #2f2f2f;
 }
 
 .history-item-date {
   font-size: 11px;
-  color: var(--color-text-muted);
+  color: #b4b4b4;
   margin-top: 4px;
 }
 

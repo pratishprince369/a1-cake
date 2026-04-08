@@ -202,17 +202,22 @@ export default function ChatApp() {
   return (
     <div className="app-wrapper">
       <div className="chat-sidebar">
-        <div className="chat-sidebar-header flex justify-between items-center cursor-pointer" onClick={handleNewChat}>
-          <span>A-One Chats</span>
-          <MessageSquarePlus size={20} />
+        <div className="chat-sidebar-header" onClick={handleNewChat}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2px' }}>
+              <img src="https://aonecakes.com/themes/cake/imgaes/a-one-logo.png" alt="logo" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
+            </div>
+            <span>New chat</span>
+          </div>
+          <MessageSquarePlus size={18} />
         </div>
-        <div className="chat-sidebar-history">
-          <div className="text-xs text-gray-500 mb-4 font-semibold px-1">Order History</div>
+        <div className="chat-sidebar-history" style={{ marginTop: '16px' }}>
+          <div style={{ fontSize: '12px', marginBottom: '12px', fontWeight: '600', padding: '0 8px', color: '#9b9b9b' }}>Order History</div>
           {pastSessions.map((session, idx) => (
             <div key={idx} className="history-item" onClick={() => loadPastSession(session)}>
-              <div className="flex items-center">
-                <Clock size={14} className="mr-2 text-gray-400" />
-                <span className="truncate flex-1">
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Clock size={14} style={{ marginRight: '8px', color: '#9b9b9b' }} />
+                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1 }}>
                   {session.orderDetails?.customer_name ? 
                     `Order: ${session.orderDetails.product_name || 'Cake'}` : 
                     "Conversation"}
@@ -224,7 +229,7 @@ export default function ChatApp() {
             </div>
           ))}
           {pastSessions.length === 0 && (
-            <div className="text-sm text-gray-400 text-center mt-10">No past orders</div>
+            <div style={{ fontSize: '14px', textAlign: 'center', marginTop: '40px', color: '#666' }}>No past orders</div>
           )}
         </div>
       </div>
