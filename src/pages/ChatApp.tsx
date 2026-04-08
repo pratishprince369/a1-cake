@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Send, MessageSquarePlus, Clock } from 'lucide-react';
+import { Send, MessageSquarePlus, Clock, Menu, X } from 'lucide-react';
 import { useChatFlow } from '../hooks/useChatFlow';
 import { categories, products } from '../data/products';
 import { getOldChats } from '../services/db';
@@ -24,6 +24,7 @@ export default function ChatApp() {
   } = useChatFlow();
 
   const [pastSessions, setPastSessions] = useState<any[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     // Load chat history from Firebase
@@ -128,7 +129,10 @@ export default function ChatApp() {
   const renderMainContent = () => {
     if (step === 'LANDING' && messages.length === 0) {
       return (
-        <div className="landing-container" style={{ flex: 1, height: '100%' }}>
+        <div className="landing-container" style={{ flex: 1, height: '100%', position: 'relative' }}>
+          <button className="hamburger-btn" onClick={() => setIsSidebarOpen(true)} style={{ position: 'absolute', top: '20px', left: '20px' }}>
+            <Menu size={24} />
+          </button>
           <div className="landing-content">
             <img src={logoUrl} alt="A-One Cakes Logo" className="landing-logo" />
             <h1 className="landing-title">What are you craving today? 🎂</h1>
@@ -155,8 +159,14 @@ export default function ChatApp() {
 
     return (
       <div className="chat-container">
-        <div className="chat-header" style={{ justifyContent: 'center' }}>
-          <img src={logoUrl} alt="A-One Cakes Logo" style={{ height: '36px', animation: 'fadeIn 0.5s ease' }} />
+        <div className="chat-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <button className="hamburger-btn" onClick={() => setIsSidebarOpen(true)}>
+            <Menu size={24} />
+          </button>
+          <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <img src={logoUrl} alt="A-One Cakes Logo" style={{ height: '36px', animation: 'fadeIn 0.5s ease' }} />
+          </div>
+          <div style={{ width: '40px' }} className="hamburger-btn"></div>
         </div>
 
         <div className="chat-messages">
@@ -201,20 +211,26 @@ export default function ChatApp() {
 
   return (
     <div className="app-wrapper">
-      <div className="chat-sidebar">
-        <div className="chat-sidebar-header" onClick={handleNewChat}>
+      <div className={`sidebar-overlay ${isSidebarOpen ? 'open' : ''}`} onClick={() => setIsSidebarOpen(false)}></div>
+      <div className={`chat-sidebar ${isSidebarOpen ? 'open' : ''}`}>
+        <div className="chat-sidebar-header" onClick={() => { handleNewChat(); setIsSidebarOpen(false); }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div style={{ width: '24px', height: '24px', backgroundColor: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2px' }}>
               <img src="https://aonecakes.com/themes/cake/imgaes/a-one-logo.png" alt="logo" style={{width: '100%', height: '100%', objectFit: 'contain'}} />
             </div>
             <span>New chat</span>
           </div>
-          <MessageSquarePlus size={18} />
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <MessageSquarePlus size={18} />
+            <button className="mobile-close-btn" onClick={(e) => { e.stopPropagation(); setIsSidebarOpen(false); }} style={{ background: 'none', border: 'none', color: 'white' }}>
+              <X size={20} />
+            </button>
+          </div>
         </div>
         <div className="chat-sidebar-history" style={{ marginTop: '16px' }}>
           <div style={{ fontSize: '12px', marginBottom: '12px', fontWeight: '600', padding: '0 8px', color: '#9b9b9b' }}>Order History</div>
           {pastSessions.map((session, idx) => (
-            <div key={idx} className="history-item" onClick={() => loadPastSession(session)}>
+            <div key={idx} className="history-item" onClick={() => { loadPastSession(session); setIsSidebarOpen(false); }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Clock size={14} style={{ marginRight: '8px', color: '#9b9b9b' }} />
                 <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', flex: 1 }}>

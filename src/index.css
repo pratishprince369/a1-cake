@@ -599,3 +599,77 @@ input:focus, textarea:focus {
   background: #d4edda;
   color: #155724;
 }
+
+/* Mobile Overrides */
+.hamburger-btn {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-text-main);
+  padding: 8px;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.mobile-close-btn {
+  display: none !important;
+}
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn {
+    display: block;
+  }
+  
+  .mobile-close-btn {
+    display: block !important;
+  }
+
+  .chat-sidebar {
+    position: absolute;
+    left: -260px;
+    z-index: 50;
+    transition: left 0.3s ease;
+  }
+  
+  .chat-sidebar.open {
+    left: 0;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 40;
+    display: none;
+  }
+
+  .sidebar-overlay.open {
+    display: block;
+  }
+
+  .chat-container {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+
+  .landing-input-wrapper {
+    width: 90%;
+  }
+
+  .bubble {
+    max-width: 90%;
+  }
+  
+  .product-carousel {
+    padding-bottom: 24px;
+  }
+}
+
